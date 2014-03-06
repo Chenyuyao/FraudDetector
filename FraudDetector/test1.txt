@@ -1,0 +1,25 @@
+package detector;
+
+public class Main {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		String[] sab = {"A","B"};
+		String[] sbc = {"B","C"};
+		Factor fab = new Factor(2,sab);
+		Factor fbc = new Factor(2,sbc);
+		double[] dab = {9,1,4,6};
+		double[] dbc = {7,3,8,2};
+		
+		fab.set(dab);
+		fbc.set(dbc);
+		fbc.multiply(fab).sum("B").print();
+		fab.print();
+
+		
+	}
+
+}

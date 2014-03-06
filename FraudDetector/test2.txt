@@ -1,0 +1,42 @@
+package detector;
+import java.util.Vector;
+
+public class Main {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		String[] s1 = {"A"};
+		String[] s2 = {"A","B"};
+		String[] s3 = {"B","C"};
+		Factor f1 = new Factor(1,s1);
+		Factor f2 = new Factor(2,s2);
+		Factor f3 = new Factor(2,s3);
+		double[] d1 = {9,1};
+		double[] d2 = {9,1,4,6};
+		double[] d3 = {7,3,2,8};
+		
+		f1.set(d1);
+		f2.set(d2);
+		f3.set(d3);
+		/*
+		Factor f4 = f2.multiply(f1).sum("A");
+		Factor f5 = f3.multiply(f4).sum("B");
+		f3.print();
+		f4.print();
+		f5.print();*/
+		Tools tools = new Tools();
+		Vector<Factor> flst = new Vector<Factor>();
+		flst.add(f3);
+		flst.add(f2);
+		flst.add(f1);
+		String[] olst = {"A","B"};
+		Factor f5 = tools.inference(flst, "C", olst, null, null);
+		f5.print();
+
+		
+	}
+
+}
