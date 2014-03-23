@@ -28,7 +28,7 @@ public class Factor {
             break;
 
         default: 
-        	System.out.print("Degree out of design: bigger than 4\n");
+        	System.out.print("Degree out of design: bigger than 4.\n");
         	System.exit(0);
             break;			
 		}
@@ -40,6 +40,57 @@ public class Factor {
 		}
 		
 		vars = variable;		
+	}
+	
+	public Factor(Factor another) {
+		this.degree = another.degree;
+		this.sum = another.sum;
+		vars = new String[degree];
+		for (int i = 0; i<this.degree; i++) {
+			vars[i] = another.vars[i];
+		}
+		
+		switch(degree){
+		case 1:
+			oneDA = new double[2];
+			for (int i1 =0; i1<2; i1++){
+				oneDA[i1] = another.oneDA[i1];
+			}
+			break;
+		case 2:
+			twoDA = new double[2][2];
+			for (int i1 =0; i1<2; i1++){
+				for (int i2 =0; i2<2; i2++){
+					twoDA[i1][i2] = another.twoDA[i1][i2];
+				}
+			}
+			break;
+		case 3:
+			threeDA = new double[2][2][2];
+			for (int i1 =0; i1<2; i1++){
+				for (int i2 =0; i2<2; i2++){
+					for (int i3 =0; i3<2; i3++){
+						threeDA[i1][i2][i3] = another.threeDA[i1][i2][i3];
+					}
+				}
+			}
+			break;
+		case 4:
+			fourDA = new double[2][2][2][2];
+			for (int i1 =0; i1<2; i1++){
+				for (int i2 =0; i2<2; i2++){
+					for (int i3 =0; i3<2; i3++){
+						for (int i4 =0; i4<2; i4++){
+							fourDA[i1][i2][i3][i4] = another.fourDA[i1][i2][i3][i4];
+						}
+					}
+				}
+			}
+			break;
+		default:
+			System.out.print("Degree out of design\n");
+        	System.exit(0);			
+		}
 	}
 	
 	public void set(double[] vals) {
@@ -117,7 +168,7 @@ public class Factor {
 	
 	public boolean contain(String tar) {
 		for (int i =0; i<vars.length; i++) {
-			if (vars[i]==tar) return true;
+			if (vars[i].equals(tar)) return true;
 		}
 		return false;
 	}
@@ -221,7 +272,7 @@ public class Factor {
 		int index=-1,j=0;
 		String[] newVars = new String[degree-1];
 		for(int i = 0; i < vars.length ; i++) {
-			if (var == vars[i]) index=i;
+			if (var.equals(vars[i]) ) index=i;
 			else {
 				newVars[j] = vars[i];
 				j++;
@@ -315,7 +366,7 @@ public class Factor {
 		int index=-1,j=0;
 		String[] newVars = new String[degree-1];
 		for(int i = 0; i < vars.length ; i++) {
-			if (var == vars[i]) index=i;
+			if (var.equals(vars[i])) index=i;
 			else {
 				newVars[j] = vars[i];
 				j++;
@@ -419,7 +470,7 @@ public class Factor {
 		for (int i = 0; i<f.vars.length ;i++) {
 			boolean found = false;
 			for (int j = 0; j<vars.length; j++) {
-				if (f.vars[i] == vars[j]) {
+				if (f.vars[i].equals(vars[j])) {
 					found = true;
 				}
 			}
@@ -432,15 +483,12 @@ public class Factor {
 		}
 		for(int i = 0; i<f.vars.length ;i++){
 			for(int j = 0; j<resVar.length; j++) {
-				if(f.vars[i] == resVar[j]) {
+				if(f.vars[i].equals(resVar[j])) {
 					pinFor[i] = j;
 					//System.out.print("fvar "+f.vars[i]+" resVal "+ resVar[j] +" i "+i+" j "+j +"\n");
 				}
 			}
 		}
-		
-//		System.out.print("org " + orgFor[0] + orgFor[1] +"\n");
-//		System.out.print("pin " + pinFor[0]  +"\n");
 		
 		double[] resVals = null; int i=0;
 		Factor res = new Factor(resVar.length, resVar);
